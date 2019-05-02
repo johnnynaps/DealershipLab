@@ -5,23 +5,12 @@ public class Customer {
 	private String customerId;
 	private String customerName;
 	private String customerCurrentVIN;
-	private boolean customerTradeIn;
-	private double customerTradeInValue;
 
-	public Customer() {
-		customerId = "";
-		customerName = "";
-		customerCurrentVIN = "";
-		customerTradeIn = false;
-		customerTradeInValue = 0.0;
-	}
-
-	public Customer(String customerName, String customerCurrentVIN, boolean customerTradeIn, double customerTradeInValue) {
-		this();
-		this.customerName = customerName;
-		this.customerCurrentVIN = customerCurrentVIN;
-		this.customerTradeIn = customerTradeIn;
-		this.customerTradeInValue = customerTradeInValue;
+	public Customer(String currentLine) {
+		String[] custArray = currentLine.split(",");
+		this.customerId = custArray[0];
+		this.customerName = custArray[1];
+		this.customerCurrentVIN = custArray[3];
 	}
 
 	public String getCustomerId() {
@@ -46,21 +35,5 @@ public class Customer {
 
 	public void setCustomerCurrentVIN(String customerCurrentVIN) {
 		this.customerCurrentVIN = customerCurrentVIN;
-	}
-
-	public boolean isCustomerTradeIn() {
-		return customerTradeIn;
-	}
-
-	public void setCustomerTradeIn(boolean customerTradeIn) {
-		this.customerTradeIn = customerTradeIn;
-	}
-
-	public double getCustomerTradeInValue() {
-		return customerTradeInValue;
-	}
-
-	public void setCustomerTradeInValue(double customerTradeInValue) {
-		this.customerTradeInValue = customerTradeInValue;
 	}
 }

@@ -4,20 +4,21 @@ public class Transaction {
 
 	private String transactionDate;
 	private String transactionTime;
-	private SalesAssociate transactionSalesAssociate;
-	private Customer transactionCustomer;
-	private Car transactionCar;
+	private String transactionSalesAssociate;
+	private String transactionCustomer;
+	private String transactionCar;
 	private double transactionTotal;
-
-	public Transaction() {
-		transactionDate = "";
-		transactionTime = "";
-		// transactionSalesAssociate
-		// transactionCustomer
-		// transactionCar
-		transactionTotal = 0.0;
+		
+	public Transaction(String currentLine ) {
+		String transArray[] = currentLine.split(",");
+		this.transactionDate = transArray[0];
+		this.transactionTime = transArray[1];
+		this.transactionSalesAssociate = transArray[2];
+		this.transactionCustomer = transArray[3];
+		this.transactionCar = transArray[4];
+		this.transactionTotal = Double.parseDouble(transArray[5]);
 	}
-
+	
 	public String getTransactionDate() {
 		return transactionDate;
 	}
@@ -34,27 +35,27 @@ public class Transaction {
 		this.transactionTime = transactionTime;
 	}
 
-	public SalesAssociate getTransactionSalesAssociate() {
+	public String getTransactionSalesAssociate() {
 		return transactionSalesAssociate;
 	}
 
-	public void setTransactionSalesAssociate(SalesAssociate transactionSalesAssociate) {
+	public void setTransactionSalesAssociate(String transactionSalesAssociate) {
 		this.transactionSalesAssociate = transactionSalesAssociate;
 	}
 
-	public Customer getTransactionCustomer() {
+	public String getTransactionCustomer() {
 		return transactionCustomer;
 	}
 
-	public void setTransactionCustomer(Customer transactionCustomer) {
+	public void setTransactionCustomer(String transactionCustomer) {
 		this.transactionCustomer = transactionCustomer;
 	}
 
-	public Car getTransactionCar() {
+	public String getTransactionCar() {
 		return transactionCar;
 	}
 
-	public void setTransactionCar(Car transactionCar) {
+	public void setTransactionCar(String transactionCar) {
 		this.transactionCar = transactionCar;
 	}
 

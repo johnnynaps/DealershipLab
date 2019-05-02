@@ -7,19 +7,14 @@ public class SalesAssociate {
 	private String associateAddress;
 	private double associateTotalSales;
 	private String associatePassword;
-
-	public SalesAssociate() {
-		associateId = "";
-		associateName = "";
-		associateAddress = "";
-		associateTotalSales = 0.0;
-		associatePassword = "";
-	}
-
-	public SalesAssociate(String associateName, String associateAddress) {
-		this();
-		this.associateName = associateName;
-		this.associateAddress = associateAddress;
+	
+	public SalesAssociate(String currentLine) {
+		String[] assArray = currentLine.split(",");
+		this.associateId = assArray[0];
+		this.associateName = assArray[1];
+		this.associateAddress = assArray[2];
+		this.associateTotalSales = Double.parseDouble(assArray[3]);
+		this.associatePassword = assArray[4];
 	}
 
 	public String getAssociateId() {
@@ -60,6 +55,10 @@ public class SalesAssociate {
 
 	public void setAssociatePassword(String associatePassword) {
 		this.associatePassword = associatePassword;
+	}
+	public String toString() {
+		return associateId + associatePassword;
+
 	}
 
 }
