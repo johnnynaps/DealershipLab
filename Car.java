@@ -29,7 +29,7 @@ public class Car {
 	}
 
 	public Car(String currentLine) {
-		
+
 		String[] carArray = currentLine.split(",");
 		this.carMake = carArray[0];
 		this.carModel = carArray[1];
@@ -37,7 +37,7 @@ public class Car {
 		this.carYear = carArray[3];
 		this.carColor = carArray[4];
 		this.carValue = Double.parseDouble(carArray[5]);
-		
+
 	}
 
 	public String getCarMake() {
@@ -92,7 +92,7 @@ public class Car {
 		return "Make > " + carMake + "\nModel > " + carModel + "\nVIN > " + carVIN + "\nYear > " + carYear
 				+ "\nColor > " + carColor + "\nValue > $" + carValue + "\n";
 	}
-	
+
 	public String toArrayList() {
 		return "Make > " + carMake + "\nModel > " + carModel + "\nVIN > " + carVIN + "\nYear > " + carYear
 				+ "\nColor > " + carColor + "\nValue > $" + carValue;

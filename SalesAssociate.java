@@ -7,7 +7,7 @@ public class SalesAssociate {
 	private String associateAddress;
 	private double associateTotalSales;
 	private String associatePassword;
-	
+
 	public SalesAssociate() {
 		associateID = "";
 		associateName = "";

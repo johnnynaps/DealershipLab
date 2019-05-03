@@ -9,11 +9,12 @@ public class Customer {
 		customerID = "";
 		customerName = "";
 	}
+
 	public Customer(String custID, String custName) {
 		this.customerID = custID;
 		this.customerName = custName;
 	}
-	
+
 	public Customer(String currentLine) {
 		String[] custArray = currentLine.split(",");
 		this.customerID = custArray[0];

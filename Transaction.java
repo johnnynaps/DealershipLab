@@ -8,7 +8,7 @@ public class Transaction {
 	private String transactionCustomer;
 	private String transactionCar;
 	private double transactionTotal;
-	
+
 	public Transaction() {
 		transactionDate = "";
 		transactionTime = "";
@@ -84,6 +84,12 @@ public class Transaction {
 	public void setTransactionTotal(double transactionTotal) {
 		this.transactionTotal = transactionTotal;
 	}
+		
+//	public String toArrayList() {
+//		return "Date> " + transactionDate + "\nTime> " + transactionTime + "\nSales Associate ID> "
+//				+ transactionSalesAssociate + "\nCustomer ID> " + transactionCustomer + "\nCar VIN Number> "
+//				+ transactionCar + "\nTotal Sale> $" + transactionTotal;
+//	}
 
 	public String toString() {
 		return "Date> " + transactionDate + " Time> " + transactionTime + " Sales Associate ID> "

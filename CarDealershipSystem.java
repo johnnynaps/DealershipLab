@@ -171,13 +171,14 @@ public class CarDealershipSystem {
 
 	public void deleteCar(Car car) throws IOException {
 		cars.remove(car);
-		saveFiles();
 	}
 
 	public void saveFiles() throws IOException {
 		saveCars();
 		saveCustomers();
 		saveSalesAssociates();
+		saveSold();
+		saveTransactions();
 	}
 
 	private void saveCars() throws IOException {
@@ -201,7 +202,7 @@ public class CarDealershipSystem {
 	}
 
 	private void saveTransactions() throws IOException {
-		FileWriter testFile = new FileWriter("E:/Users/johnn/Documents/transactions.txt", true);
+		FileWriter testFile = new FileWriter("E:/Users/johnn/Documents/transactions.txt");
 		BufferedWriter writer = new BufferedWriter(testFile);
 
 		for (Transaction transaction : transactions) {
@@ -235,20 +236,31 @@ public class CarDealershipSystem {
 		Transaction transaction = new Transaction(date, time, salesAssociate.getAssociateID(), customer.getCustomerId(),
 				car.getCarVIN(), Double.parseDouble(value));
 		transactions.add(transaction);
-		saveTransactions();
 		sold.add(car);
-		saveSold();
 		salesAssociate.addSale(Double.parseDouble(value));
 		deleteCar(car);
 	}
 
-	public String displayTransactions(String empID) {
+//	public String displayTransactions(String empID) {
+//		for (Transaction transaction : transactions) {
+//			if (transaction.getTransactionSalesAssociate().equals(empID)) {
+//				return transaction.toString();
+//			}
+//		}
+//		return null;
+//	}
+
+	public ArrayList<String> displayTransactions(String empID) { // figure out multiples
+		ArrayList<String> searchResults = new ArrayList<>();
 		for (Transaction transaction : transactions) {
 			if (transaction.getTransactionSalesAssociate().equals(empID)) {
-				return transaction.toString();
+				searchResults.add(transaction.toString());
 			}
 		}
-		return null;
+		if (searchResults.isEmpty()) {
+			return null;
+		}
+		return searchResults;
 	}
 
 	public double displayTotalSale(String empID) {
@@ -282,10 +294,9 @@ public class CarDealershipSystem {
 		}
 	}
 
-	public Customer newCustomer(String custID, String custName) throws IOException {
+	public Customer addCustomer(String custID, String custName) throws IOException {
 		Customer customer = new Customer(custID, custName);
 		customers.add(customer);
-		saveFiles();
 		return customer;
 	}
 }

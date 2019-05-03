@@ -86,8 +86,7 @@ public class DealershipProgram {
 				Car newCar = new Car(make, model, vin, year, color, Double.parseDouble(value));
 				System.out.println(newCar.toString());
 
-				carDealershipSystem.addCar(make, model, vin, year, color, Double.parseDouble(value));
-				carDealershipSystem.saveFiles(); // show car
+				carDealershipSystem.addCar(make, model, vin, year, color, Double.parseDouble(value)); // show car
 
 				break;
 			case 2:
@@ -276,7 +275,7 @@ public class DealershipProgram {
 					String custName = keyboard.nextLine();
 					System.out.println("Enter customer ID");
 					String custID = keyboard.nextLine();
-					customer = carDealershipSystem.newCustomer(custID, custName);
+					customer = carDealershipSystem.addCustomer(custID, custName);
 				} else {
 					System.out.println("Invalid Choice");
 					break;
@@ -288,13 +287,10 @@ public class DealershipProgram {
 					value = keyboard.nextLine();
 				}
 				carDealershipSystem.makeTransaction(date, time, car, customer, salesAssociate, value);
-				System.out.println(salesAssociate.getAssociateTotalSales()); // sales after add
-				carDealershipSystem.saveFiles();
-				carDealershipSystem.loadFiles();
-
+				System.out.println("Transaction Recorded");
 				break;
 			case 6:
-				System.out.println("Displaying your previos sales");
+				System.out.println("Displaying your previous sales");
 				// DisplaySales(empNumber, carList);
 
 				if (carDealershipSystem.displayTransactions(userID) == null) {
@@ -310,6 +306,7 @@ public class DealershipProgram {
 				break;
 			case 8:
 				userWantsToContinue = false;
+				carDealershipSystem.saveFiles();
 				break;
 			}
 
