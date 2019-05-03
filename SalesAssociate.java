@@ -2,27 +2,35 @@ package com.jnapolin.lab5;
 
 public class SalesAssociate {
 
-	private String associateId;
+	private String associateID;
 	private String associateName;
 	private String associateAddress;
 	private double associateTotalSales;
 	private String associatePassword;
 	
+	public SalesAssociate() {
+		associateID = "";
+		associateName = "";
+		associateAddress = "";
+		associateTotalSales = 0.0;
+		associatePassword = "";
+	}
+
 	public SalesAssociate(String currentLine) {
 		String[] assArray = currentLine.split(",");
-		this.associateId = assArray[0];
+		this.associateID = assArray[0];
 		this.associateName = assArray[1];
 		this.associateAddress = assArray[2];
 		this.associateTotalSales = Double.parseDouble(assArray[3]);
 		this.associatePassword = assArray[4];
 	}
 
-	public String getAssociateId() {
-		return associateId;
+	public String getAssociateID() {
+		return associateID;
 	}
 
 	public void setAssociateId(String associateId) {
-		this.associateId = associateId;
+		this.associateID = associateId;
 	}
 
 	public String getAssociateName() {
@@ -56,9 +64,19 @@ public class SalesAssociate {
 	public void setAssociatePassword(String associatePassword) {
 		this.associatePassword = associatePassword;
 	}
-	public String toString() {
-		return associateId + associatePassword;
 
+	public String toString() {
+		return associateID + associatePassword;
+
+	}
+
+	public String toCSV() {
+		return associateID + "," + associateName + "," + associateAddress + "," + associateTotalSales + ","
+				+ associatePassword + "\r\n";
+	}
+
+	public void addSale(double value) {
+		this.associateTotalSales += value;
 	}
 
 }

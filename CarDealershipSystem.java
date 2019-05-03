@@ -1,32 +1,13 @@
 package com.jnapolin.lab5;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
-//login xx
-//menu
-//edit/modify/delete cars
-//make transaction (find/select car)
-//find car by make/model
-//record transactions/sales with append mode
-//display cars sold by employee (menu function)
-//display employee with total sales
-//store cars in cars.txt
-//input validation
-//instructions each step
-
-//take strings for make and model and search for car object
-//read cars.txt and store Car object in collection done in constructor
-//read employees.txt and create SalesAssociate object blah blah in constructor
-//takes Car, SalesAssociate, Customer objects and creates a Transaction object (see word doc)
-//save new transactions to transactions.txt (not overwrite)
-//save cars(overwrite)
-//save employees(overwrite)
 
 public class CarDealershipSystem {
 
@@ -34,37 +15,12 @@ public class CarDealershipSystem {
 	public List<Customer> customers = new ArrayList<>();
 	public List<Car> cars = new ArrayList<>();
 	public List<Transaction> transactions = new ArrayList<>();
-	public List<Car> sold = new ArrayList<>(); 
+	public List<Car> sold = new ArrayList<>();
 
-	public void start() throws IOException {
-		loadFiles();
-		Scanner scanner = new Scanner(System.in);
-		boolean userWantsToContinue = true;
-		String userId;
-		String userPass;
-
-		System.out.println("Please log in using your Associate ID and Password");
-		System.out.println("Enter your ID");
-		userId = scanner.nextLine();
-		System.out.println("Enter your Password");
-		userPass = scanner.nextLine();
-
-		while (userWantsToContinue) {
-			while (!authenticate(userId, userPass)) {
-				System.out.println("Sorry\n");
-				System.out.println("Enter your ID");
-				userId = scanner.nextLine();
-				System.out.println("Enter your Password");
-				userPass = scanner.nextLine();
-			}
-		}
-		scanner.close();
-	}
-
-	public boolean authenticate(String assId, String assPass) {
+	public boolean authenticate(String assID, String assPass) {
 
 		for (SalesAssociate associate : salesAssociates) {
-			if (associate.getAssociateId().equals(assId) && associate.getAssociatePassword().equals(assPass)) {
+			if (associate.getAssociateID().equals(assID) && associate.getAssociatePassword().equals(assPass)) {
 				return true;
 			}
 		}
@@ -76,6 +32,7 @@ public class CarDealershipSystem {
 		loadSalesAssociates();
 		loadTransactions();
 		loadCustomers();
+		loadSold();
 	}
 
 	private void loadCars() throws IOException {
@@ -130,17 +87,56 @@ public class CarDealershipSystem {
 		reader.close();
 	}
 
-	public void addInventory(String make, String model, String VIN, String year, String color, double value)
+	private void loadSold() throws IOException {
+		File testFile = new File("E:/Users/johnn/Documents/sold.txt");
+		BufferedReader reader = new BufferedReader(new FileReader(testFile));
+		String currentLine;
+
+		while ((currentLine = reader.readLine()) != null) {
+
+			Car car = new Car(currentLine);
+			sold.add(car);
+		}
+		reader.close();
+	}
+
+	public void addCar(String make, String model, String vin, String year, String color, double value)
 			throws IOException {
-		Car car = new Car(make, model, VIN, year, color, value);
+		Car car = new Car(make, model, vin, year, color, value);
 		cars.add(car);
 	}
 
-	public Car findCar(String VIN) {
+	public Car findCar(String vin) {
 		for (Car car : cars) {
-			if (car.getCarVIN() == VIN) {
-				System.out.println(car.toString());
+			if (car.getCarVIN().equals(vin)) {
 				return car;
+			}
+		}
+		return null;
+	}
+
+	public Car findCar(String make, String model) { //figure out multiples
+		for (Car car : cars) {
+			if (car.getCarMake().equals(make.toUpperCase()) && car.getCarModel().equals(model.toUpperCase())) {
+				return car;
+			}
+		}
+		return null;
+	}
+
+	public SalesAssociate findAssociate(String assID) {
+		for (SalesAssociate associate : salesAssociates) {
+			if (associate.getAssociateID().equals(assID)) {
+				return associate;
+			}
+		}
+		return null;
+	}
+
+	public Customer findCustomer(String cusID) {
+		for (Customer customer : customers) {
+			if (customer.getCustomerId().equals(cusID)) {
+				return customer;
 			}
 		}
 		return null;
@@ -149,25 +145,144 @@ public class CarDealershipSystem {
 	public void modifyCar(Car car, int choice, String change) {
 		switch (choice) {
 		case 1:
-			car.setCarMake(change);
+			car.setCarMake(change.toUpperCase());
+			break;
 		case 2:
-			car.setCarModel(change);
+			car.setCarModel(change.toUpperCase());
+			break;
 		case 3:
 			car.setCarVIN(change);
+			break;
 		case 4:
 			car.setCarYear(change);
+			break;
 		case 5:
 			car.setCarColor(change);
+			break;
 		case 6:
 			car.setCarValue(Double.parseDouble(change));
+			break;
 		}
 	}
 
-	public void saveFiles() {
-
+	public void deleteCar(Car car) throws IOException {
+		cars.remove(car);
+		saveFiles();
 	}
 
-	public void deleteCar(Car car) {
-		cars.remove(car);
+	public void saveFiles() throws IOException {
+		saveCars();
+		saveCustomers();
+		saveSalesAssociates();
+	}
+
+	private void saveCars() throws IOException {
+		FileWriter testFile = new FileWriter("E:/Users/johnn/Documents/cars.txt");
+		BufferedWriter writer = new BufferedWriter(testFile);
+
+		for (Car car : cars) {
+			writer.write(car.toCSV());
+		}
+		writer.close();
+	}
+
+	private void saveCustomers() throws IOException {
+		FileWriter testFile = new FileWriter("E:/Users/johnn/Documents/customers.txt");
+		BufferedWriter writer = new BufferedWriter(testFile);
+
+		for (Customer customer : customers) {
+			writer.write(customer.toCSV());
+		}
+		writer.close();
+	}
+
+	private void saveTransactions() throws IOException {
+		FileWriter testFile = new FileWriter("E:/Users/johnn/Documents/transactions.txt", true);
+		BufferedWriter writer = new BufferedWriter(testFile);
+
+		for (Transaction transaction : transactions) {
+			writer.write(transaction.toCSV());
+		}
+		writer.close();
+	}
+
+	private void saveSalesAssociates() throws IOException {
+		FileWriter testFile = new FileWriter("E:/Users/johnn/Documents/employees.txt");
+		BufferedWriter writer = new BufferedWriter(testFile);
+
+		for (SalesAssociate associate : salesAssociates) {
+			writer.write(associate.toCSV());
+		}
+		writer.close();
+	}
+
+	private void saveSold() throws IOException {
+		FileWriter testFile = new FileWriter("E:/Users/johnn/Documents/sold.txt");
+		BufferedWriter writer = new BufferedWriter(testFile);
+
+		for (Car car : sold) {
+			writer.write(car.toCSV());
+		}
+		writer.close();
+	}
+
+
+	public void makeTransaction(String date, String time, Car car, Customer customer, SalesAssociate salesAssociate,
+			String value) throws IOException {
+		Transaction transaction = new Transaction(date, time, salesAssociate.getAssociateID(), customer.getCustomerId(),
+				car.getCarVIN(), Double.parseDouble(value));
+		transactions.add(transaction);
+		saveTransactions();
+		sold.add(car);
+		saveSold();
+		salesAssociate.addSale(Double.parseDouble(value));
+		deleteCar(car);
+	}
+
+	public String displayTransactions(String empID) {
+		for (Transaction transaction : transactions) {
+			if (transaction.getTransactionSalesAssociate().equals(empID)) {
+				return transaction.toString();
+			}
+		}
+		return null;
+	}
+
+	public double displayTotalSale(String empID) {
+		for (SalesAssociate associate : salesAssociates) {
+			if (associate.getAssociateID().equals(empID)) {
+				return associate.getAssociateTotalSales();
+			}
+		}
+		return 0; // DNE or some error
+	}
+	
+	public boolean isDouble(String value, String description) {
+		value.trim();
+		try {
+			Double.parseDouble(value);
+			return true;
+		} catch (NumberFormatException ex) {
+			System.err.println("Invalid " + description + ". Enter Valid " + description);
+			return false;
+		}
+	}
+	
+	public boolean isInt(String value, String description) {
+		value.trim();
+		try {
+			Integer.parseInt(value);
+			return true;
+		} catch (NumberFormatException ex) {
+			System.err.println("Invalid " + description + ". Enter Valid " + description);
+			return false;
+		}
+	}
+	
+	public Customer newCustomer(String custID, String custName) throws IOException {
+		Customer customer = new Customer(custID, custName);
+		customers.add(customer);
+		saveFiles();
+		return customer;
 	}
 }

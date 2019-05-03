@@ -20,8 +20,8 @@ public class Car {
 
 	public Car(String carMake, String carModel, String carVin, String carYear, String carColor, double carValue) {
 		this();
-		this.carMake = carMake;
-		this.carModel = carModel;
+		this.carMake = carMake.toUpperCase();
+		this.carModel = carModel.toUpperCase();
 		this.carVIN = carVin;
 		this.carYear = carYear;
 		this.carColor = carColor;
@@ -29,6 +29,7 @@ public class Car {
 	}
 
 	public Car(String currentLine) {
+		
 		String[] carArray = currentLine.split(",");
 		this.carMake = carArray[0];
 		this.carModel = carArray[1];
@@ -36,6 +37,7 @@ public class Car {
 		this.carYear = carArray[3];
 		this.carColor = carArray[4];
 		this.carValue = Double.parseDouble(carArray[5]);
+		
 	}
 
 	public String getCarMake() {
@@ -87,8 +89,8 @@ public class Car {
 	}
 
 	public String toString() {
-		return "Make > " + carMake + "/nModel > " + carModel + "\nVIN > " + carVIN + "\nYear > " + carYear
-				+ "\nColor > " + carColor + "\nValue > $" + carValue;
+		return "Make > " + carMake + "\nModel > " + carModel + "\nVIN > " + carVIN + "\nYear > " + carYear
+				+ "\nColor > " + carColor + "\nValue > $" + carValue + "\n";
 	}
 
 	@Override
@@ -114,6 +116,10 @@ public class Car {
 		} else if (!carVIN.equals(other.carVIN))
 			return false;
 		return true;
+	}
+
+	public String toCSV() {
+		return carMake + "," + carModel + "," + carVIN + "," + carYear + "," + carColor + "," + carValue + "\r\n";
 	}
 
 }
