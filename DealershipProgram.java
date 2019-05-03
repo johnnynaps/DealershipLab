@@ -206,9 +206,9 @@ public class DealershipProgram {
 					System.out.println("Enter model");
 					model = keyboard.nextLine();
 
-					if (carDealershipSystem.findCar(make, model) != null) { 
-						car = carDealershipSystem.findCar(make, model);
-						System.out.println(car.toString());
+					if (carDealershipSystem.findCar(make, model) != null) {
+						// fixing
+						System.out.println(carDealershipSystem.findCar(make, model).toString());
 					} else {
 						System.out.println("Vehicle not found");
 						break;
@@ -277,8 +277,7 @@ public class DealershipProgram {
 					System.out.println("Enter customer ID");
 					String custID = keyboard.nextLine();
 					customer = carDealershipSystem.newCustomer(custID, custName);
-				}
-				else {
+				} else {
 					System.out.println("Invalid Choice");
 					break;
 				}

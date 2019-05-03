@@ -92,6 +92,11 @@ public class Car {
 		return "Make > " + carMake + "\nModel > " + carModel + "\nVIN > " + carVIN + "\nYear > " + carYear
 				+ "\nColor > " + carColor + "\nValue > $" + carValue + "\n";
 	}
+	
+	public String toArrayList() {
+		return "Make > " + carMake + "\nModel > " + carModel + "\nVIN > " + carVIN + "\nYear > " + carYear
+				+ "\nColor > " + carColor + "\nValue > $" + carValue;
+	}
 
 	@Override
 	public int hashCode() {

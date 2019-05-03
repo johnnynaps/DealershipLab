@@ -65,10 +65,10 @@ public class SalesAssociate {
 		this.associatePassword = associatePassword;
 	}
 
-	public String toString() {
-		return associateID + associatePassword;
-
-	}
+//	public String toString() {
+//		return associateID + associatePassword;
+//
+//	}
 
 	public String toCSV() {
 		return associateID + "," + associateName + "," + associateAddress + "," + associateTotalSales + ","

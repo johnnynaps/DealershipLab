@@ -115,13 +115,17 @@ public class CarDealershipSystem {
 		return null;
 	}
 
-	public Car findCar(String make, String model) { //figure out multiples
+	public ArrayList<String> findCar(String make, String model) { // figure out multiples
+		ArrayList<String> searchResults = new ArrayList<>();
 		for (Car car : cars) {
 			if (car.getCarMake().equals(make.toUpperCase()) && car.getCarModel().equals(model.toUpperCase())) {
-				return car;
+				searchResults.add(car.toArrayList());
 			}
 		}
-		return null;
+		if (searchResults.isEmpty()) {
+			return null;
+		}
+		return searchResults;
 	}
 
 	public SalesAssociate findAssociate(String assID) {
@@ -226,7 +230,6 @@ public class CarDealershipSystem {
 		writer.close();
 	}
 
-
 	public void makeTransaction(String date, String time, Car car, Customer customer, SalesAssociate salesAssociate,
 			String value) throws IOException {
 		Transaction transaction = new Transaction(date, time, salesAssociate.getAssociateID(), customer.getCustomerId(),
@@ -256,7 +259,7 @@ public class CarDealershipSystem {
 		}
 		return 0; // DNE or some error
 	}
-	
+
 	public boolean isDouble(String value, String description) {
 		value.trim();
 		try {
@@ -267,7 +270,7 @@ public class CarDealershipSystem {
 			return false;
 		}
 	}
-	
+
 	public boolean isInt(String value, String description) {
 		value.trim();
 		try {
@@ -278,7 +281,7 @@ public class CarDealershipSystem {
 			return false;
 		}
 	}
-	
+
 	public Customer newCustomer(String custID, String custName) throws IOException {
 		Customer customer = new Customer(custID, custName);
 		customers.add(customer);
