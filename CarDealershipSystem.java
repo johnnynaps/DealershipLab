@@ -115,11 +115,11 @@ public class CarDealershipSystem {
 		return null;
 	}
 
-	public ArrayList<String> findCar(String make, String model) { // figure out multiples
-		ArrayList<String> searchResults = new ArrayList<>();
+	public List<Car> findCars(String make, String model) { // figure out multiples
+		List<Car> searchResults = new ArrayList<>();
 		for (Car car : cars) {
 			if (car.getCarMake().equals(make.toUpperCase()) && car.getCarModel().equals(model.toUpperCase())) {
-				searchResults.add(car.toArrayList());
+				searchResults.add(car);
 			}
 		}
 		if (searchResults.isEmpty()) {
@@ -241,16 +241,7 @@ public class CarDealershipSystem {
 		deleteCar(car);
 	}
 
-//	public String displayTransactions(String empID) {
-//		for (Transaction transaction : transactions) {
-//			if (transaction.getTransactionSalesAssociate().equals(empID)) {
-//				return transaction.toString();
-//			}
-//		}
-//		return null;
-//	}
-
-	public ArrayList<String> displayTransactions(String empID) { // figure out multiples
+	public List<String> displayTransactions(String empID) { // figure out multiples
 		ArrayList<String> searchResults = new ArrayList<>();
 		for (Transaction transaction : transactions) {
 			if (transaction.getTransactionSalesAssociate().equals(empID)) {
@@ -273,9 +264,8 @@ public class CarDealershipSystem {
 	}
 
 	public boolean isDouble(String value, String description) {
-		value.trim();
 		try {
-			Double.parseDouble(value);
+			Double.parseDouble(value.trim());
 			return true;
 		} catch (NumberFormatException ex) {
 			System.err.println("Invalid " + description + ". Enter Valid " + description);
@@ -284,9 +274,8 @@ public class CarDealershipSystem {
 	}
 
 	public boolean isInt(String value, String description) {
-		value.trim();
 		try {
-			Integer.parseInt(value);
+			Integer.parseInt(value.trim());
 			return true;
 		} catch (NumberFormatException ex) {
 			System.err.println("Invalid " + description + ". Enter Valid " + description);
