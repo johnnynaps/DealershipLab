@@ -1,7 +1,8 @@
 package com.jnapolin.lab5;
 
 import java.io.IOException;
-import java.util.InputMismatchException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class DealershipProgram {
@@ -211,9 +212,10 @@ public class DealershipProgram {
 					System.out.println("Enter model");
 					model = keyboard.nextLine();
 
-					if (carDealershipSystem.findCar(make, model) != null) {
+					List<Car> matchingCars = carDealershipSystem.findCars(make, model);
+					if (matchingCars != null) {
 						// fixing
-						System.out.println(carDealershipSystem.findCar(make, model).toString());
+						System.out.println(Arrays.toString(matchingCars.toArray()));
 					} else {
 						System.out.println("Vehicle not found");
 						break;
