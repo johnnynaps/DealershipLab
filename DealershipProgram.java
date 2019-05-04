@@ -108,23 +108,29 @@ public class DealershipProgram {
 
 				// then give them a menu to select what to edit
 
-				boolean validInput2 = false;
-				while (!validInput2) {
-					try {
-						System.out.println(modifyMenu);
-						userSelection = Integer.parseInt(keyboard.nextLine());
+//				boolean validInput2 = false;
+//				while (!validInput2) {
+//					try {
+//						System.out.println(modifyMenu);
+//						userSelection = Integer.parseInt(keyboard.nextLine());
+//
+//						while ((userSelection < 1 || userSelection > 7)) {
+//							System.out.println(menuError2);
+//							userSelection = Integer.parseInt(keyboard.nextLine());
+//						}
+//						validInput2 = true;
+//						break;
+//					} catch (InputMismatchException m) {
+//						System.out.println(menuError2);
+//					}
+//				}
 
-						while ((userSelection < 1 || userSelection > 7)) {
-							System.out.println(menuError2);
-							userSelection = Integer.parseInt(keyboard.nextLine());
-						}
-						validInput2 = true;
-						break;
-					} catch (InputMismatchException m) {
-						System.out.println(menuError2);
-					}
+				System.out.println(modifyMenu);
+				userMenuChoice = keyboard.nextLine();
+				while (!carDealershipSystem.isInt(userMenuChoice, "Choice")) {
+					userMenuChoice = keyboard.nextLine();
 				}
-
+				userSelection = Integer.parseInt(userMenuChoice);
 				switch (userSelection) {
 				case 1:
 					System.out.println("Enter the new make");
